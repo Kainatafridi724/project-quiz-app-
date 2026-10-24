@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: black; ">
+    <h1 class="quiz-title"><u>:Quiz App:</u></h1>
+
+<div class="box">
+    <div id="quiz-container">
+        <h3>Question</h3>
+    </div>
+</div>
+
+<button class="btn" id="nextBtn">Next</button>
+
+<div class="result" id="result"></div>
+   <style>
+    .quiz-title {
+    font-size: 35px;
+    text-align: center;
+     text-align: center;
+    color: #d4af37;
+    font-size: 40px;
+    
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.box {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    min-height: 200px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+#quiz-container {
+    color: black;
+    width: 100%;
+}
+
+#quiz-container h3 {
+    color: black;
+}
+
+.btn {
+    padding: 10px 30px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 30px;
+    background-color: #d4af37;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 600px) {
+    .quiz-title {
+        font-size: 26px;
+    }
+
+    .box {
+        width: 100%;
+        min-height: 180px;
+        padding: 15px;
+    }
+
+    #quiz-container h3 {
+        font-size: 20px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 200px;
+        font-size: 16px;
+        display: block;
+    margin: 20px auto;
+    padding: 10px 30px;
+    background-color: #d4af37;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    }
+
+    .result {
+        font-size: 16px;
+    }
+}
+   </style>
+
+</body>
+<script type="module" src="app.js"></script>
+<script type="module" src="sign.js"></script>
+<script type="module" src="log.js"></script>
+
+</html>

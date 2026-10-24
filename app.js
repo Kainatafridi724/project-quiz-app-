@@ -1,190 +1,207 @@
-var quizcontainer=document.getElementById("quiz-container")
-var nextcontainer=document.getElementById("next-container")
-var result=document.getElementById("result")
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
+import { getDatabase, ref,push,set } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQkQDFmV8gxUWhaLmy29J858h53hOzW5I",
+  authDomain: "qaizapp-99524.firebaseapp.com",
+  databaseURL: "https://qaizapp-99524-default-rtdb.firebaseio.com",
+  projectId: "qaizapp-99524",
+  storageBucket: "qaizapp-99524.firebasestorage.app",
+  messagingSenderId: "841008506902",
+  appId: "1:841008506902:web:db3b0420cd74d91fcdad37",
+  measurementId: "G-NDPMRCZHZR"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app); 
+
+
+var quizcontainer = document.getElementById("quiz-container");
+var nextcontainer = document.getElementById("nextBtn");
+var result = document.getElementById("result");
+
 var currentQuestion = 0;
 var score = 0;
-var question=[
- {
-    Question:"What does HTML stand for?",
-     option1: "Hyper Text Markup Language",
+var wrong = 0;
+
+var question = [
+    {
+        Question: "What does HTML stand for?",
+        option1: "Hyper Text Markup Language",
         option2: "High Text Machine Language",
         option3: "Hyperlink Text Markup Language",
         option4: "Home Tool Markup Language",
         correctAns: "Hyper Text Markup Language"
- },
- {
-     Question: "Which tag creates a paragraph?",
-        option1: "<h1>",
-        option2: "<p>",
-        option3: "<img>",
-        option4: "<br>",
-        correctAns: "<p>"
- },
- {
-   Question:"Choose the correct HTML element for the largest heading?",
-        option1: "<h1>",
-        option2: "<p>",
-        option3: "<h6>",
-        option4: "<br>",
-        correctAns: "<h1>"
-
- },
- {
-      Question:"What is the correct HTML element for inserting a line break?",
-       option1: "<h1>",
-        option2: "<break>",
-        option3: "<h6>",
-        option4: "<br>",
-        correctAns: "<br>",
-},
-  {
-    Question:"Choose the correct HTML element to define important text?",
-     option1: "<h1>",
-        option2: "<break>",
-        option3: "<strong>",
-        option4: "<important>",
-        correctAns: "<strong>",
-  },
-  {
-  Question:"Choose the correct HTML element to define emphasized text?",
-       option1: "<em>",
-        option2: "<break>",
-        option3: "<strong>",
-        option4: "<important>",
-        correctAns: "<em>",
-},
-{
-    Question:"Which character is used to indicate an end tag?",
-    option1: "</>",
-        option2: "<|>",
-        option3: "<^>",
-        option4: "<*>",
-        correctAns: "</>",
-},
-{
-Question:"Which tag is used to add an image?",
-       option1:"<picture>",
-       option2:"<image>",
-        option3:"<img>",
-        option4:"<a>",
-        correctAns: "<img>",
-
-
-
     },
     {
-        Question:"How can you make a numbered list?",
-         option1: "<ol>",
-        option2: "<ul>",
-        option3: "<li>",
-        option4: "<tr>",
-        correctAns: "<ol>",
-
+        Question: "Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?",
+        option1: "title",
+        option2: "alt",
+        option3: "src",
+        option4: "longdesc",
+        correctAns: "alt"
     },
     {
-      Question:"How can you make a bulleted list?",
-       option1: "<ol>",
-        option2: "<ul>",
-        option3: "<li>",
-        option4: "<tr>",
-        correctAns: "<ul>",
-
+        Question: "How do you call a function named 'myFunction'?",
+        option1: "call myFunction()",
+        option2: "myFunction()",
+        option3: "call function myFunction()",
+        option4: "myFunction",
+        correctAns: "myFunction()"
     },
     {
-       Question:"Which tag is used to create a link?",
-       option1:"<picture>",
-       option2:"<image>",
-        option3:"<img>",
-        option4:"<a>",
-        correctAns: "<a>",
-
+        Question: "How do you write 'Hello World' in an alert box in JavaScript?",
+        option1: "msg('Hello World');",
+        option2: "alertBox('Hello World');",
+        option3: "alert('Hello World');",
+        option4: "msgBox('Hello World');",
+        correctAns: "alert('Hello World');"
     },
     {
-    Question:"What does CSS stand for?",
-     option1: "Cascading style sheets",
-        option2: "colorful style sheets",
-        option3: "create style sheets",
-        option4: "Computer style sheets",
-        correctAns: "Cascading style sheets",
-        },
-        {
-        Question:"Which CSS property is used to change the text color?",
-        option1:"color",
-        option2:"background",
-        option3:"colorful",
-        option4:"colom",
-     correctAns: "color",
+        Question: "Which CSS property controls the text size?",
+        option1: "text-style",
+        option2: "font-size",
+        option3: "text-size",
+        option4: "font-style",
+        correctAns: "font-size"
+    },
+    {
+        Question: "Which operator is used to assign a value to a variable in JavaScript?",
+        option1: "*",
+        option2: "-",
+        option3: "=",
+        option4: "==",
+        correctAns: "="
+    },
+    {
+        Question: "What does CSS stand for?", 
+        option1: "Creative Style Sheets",
+        option2: "Cascading Style Sheets",
+        option3: "Computer Style Sheets",
+        option4: "Colorful Style Sheets",
+        correctAns: "Cascading Style Sheets"
+    },
+    {
+        Question: "Which HTML attribute is used to define inline styles?",
+        option1: "class",
+        option2: "font",
+        option3: "style",
+        option4: "styles",
+        correctAns: "style"
+    },
+    {
+        Question: "Which CSS property is used to make a text bold?",
+        option1: "text-decoration: bold;",
+        option2: "font-weight: bold;",
+        option3: "font-style: bold;",
+        option4: "font-variant: bold;",
+        correctAns: "font-weight: bold;"
+    },
+    {
+        Question: "Which CSS layout method allows you to easily align items in a single row or column?",
+        option1: "Flexbox",
+        option2: "Grid",
+        option3: "Float",
+        option4: "Positioning",
+        correctAns: "Flexbox"
+    }
+];
 
-        
-},
-{
-    Question:"Which property controls the text size?",
-    option1:"font-size",
-    option2:"size",
-    option3:"font-weight",
-    option4:"font-family",
-    correctAns: "font-size",
-},
-{
-Question:"Which CSS property is used to change the font/writing style of text?",
- option1:"font-size",
-    option2:"size",
-    option3:"font-weight",
-    option4:"font-family",
-    correctAns: "font-family",
-}
-
-]
 
 function showQuestion() {
-    var q = question[currentQuestion];
+    var q = question[currentQuestion]; 
     quizcontainer.innerHTML = `
+        <h2>Question ${currentQuestion + 1} of ${question.length}</h2>
         <h3>${q.Question}</h3>
-        <input type="radio" name="answer" value="${q.option1}">
-        <span>${q.option1.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
-        <br>
-        <input type="radio" name="answer" value="${q.option2}">
-        <span>${q.option2.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
-        <br>
-        <input type="radio" name="answer" value="${q.option3}">
-        <span>${q.option3.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
-        <br>
-        <input type="radio" name="answer" value="${q.option4}">
-        <span>${q.option4.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
+        <p><label><input type="radio" name="answer" value="1"> ${q.option1}</label></p>
+        <p><label><input type="radio" name="answer" value="2"> ${q.option2}</label></p>
+        <p><label><input type="radio" name="answer" value="3"> ${q.option3}</label></p>
+        <p><label><input type="radio" name="answer" value="4"> ${q.option4}</label></p>
     `;
 }
-var wrong = 0;
+
+
 nextcontainer.onclick = function () {
     var selected = document.querySelector('input[name="answer"]:checked');
+
     if (!selected) {
-        alert("Please select an answer");
+        alert("Please select an answer!");
         return;
     }
-    
-    else {
+
+    var q = question[currentQuestion];
+    var correctOption = q["option" + selected.value];
+
+    if (correctOption === q.correctAns) {
+        score++;
+    } else {
         wrong++;
     }
-if (selected.value === question[currentQuestion].correctAns) {
-        score++;
-    }
+
     currentQuestion++;
+
     if (currentQuestion < question.length) {
         showQuestion();
-    } 
-    else {
-    result.innerHTML = question.length + "/" + score;
-    nextcontainer.style.display = "none";
-}
+    } else {
+        showData(); 
+    }
 };
-showQuestion();
 
 
+function showData() {
+    
+    quizcontainer.innerHTML = `
+        <h2>Quiz Completed!</h2>
+        <hr style="border-color: #333">
+        <h3>Total Questions: <b>${question.length}</b></h3>
+        <h3 style="color: #4caf50;">Correct Answers: <b>${score}</b></h3>
+        <h3 style="color: #f44336;">Wrong Answers: <b>${wrong}</b></h3>
+        <h2 style="text-align: center; margin-top: 20px;">Final Score: ${score}/${question.length}</h2>
+    `;
+    
+    nextcontainer.style.display = "none"; 
+   
+    var refr = ref(database, `Quiz_Results`);
+    var dataref = push(refr);
+    var id = dataref.key;
+    
+    var resultObject = {
+        id: id,
+        totalQuestions: question.length,
+        correctAnswers: score,
+        wrongAnswers: wrong,
+        finalScore: `${score}/${question.length}`
+    };
 
-
-
-
-
-
-
-
-
+    set(dataref, resultObject)
+    .then(() => {
+        alert("Your quiz result has been successfully saved to Firebase!");
+    })
+    .catch((error) => {
+        alert("Firebase Database Error: " + error.message);
+    });
+}
+function saveQuestions() {
+     var quesRefr = ref(database, 'Quizes'); 
+    var sysOpp = {};
+    
+    question.forEach((item, index) => {
+        
+        sysOpp[`Quiz_Results_${index+1}`] = item;
+    });
+   
+ set(quesRefr,sysOpp)
+    .then(() => {
+        console.log("All questions successfully synced to Firebase!");
+    })
+    .catch((error) => {
+        console.error("Error saving questions: ", error);
+    });
+    
+}
+showQuestion(); 
+saveQuestions()

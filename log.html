@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+</html>
+<body style="background-color: black;">
+    <div class="box" >
+
+
+        <h1>Log in</h1>
+ 
+        <div style="border-radius:20px ; color: black; padding: 10px;">
+            <label for="">Email</label>
+            <input type="text" id="email">
+        </div>
+        
+        <div style="border-radius:20px ; color: black; padding: 10px;">
+            <label for="">Password</label>
+            <input type="password" id="pswod">
+        </div>
+        <div style="border-radius:20px ; color: black; padding: 20px;">
+        <button type="button" style="background-color: white;border-radius:20px ;font-size: 20px;border: 2px solid; 
+         color: black;" id="loginBtn">Login</button>
+     </div>
+    </div>
+    </div>
+    <style>
+        
+
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(100, 41, 41);
+    color: white;
+    width: 350px;
+    max-width: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.box h1 {
+    color:white;
+}
+
+.box label {
+    display: block;
+    color: white;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.box input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.box button {
+    padding: 10px 20px;
+    margin: 5px;
+    
+}
+
+@media screen and (max-width: 600px) {
+    .box {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .box button {
+        font-size: 16px;
+    }
+}
+
+    </style>
+ 
+</body>
+<script type="module" src="app.js"></script>
+<script type="module" src="sign.js"></script>
+<script type="module" src="log.js"></script>
+
+</html>
